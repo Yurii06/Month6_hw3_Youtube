@@ -1,4 +1,4 @@
-package com.geektech.month6_hw3.ui.main
+package com.geektech.month6_hw3.ui.playlist
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,13 +9,18 @@ import com.bumptech.glide.Glide
 import com.geektech.month6_hw3.data.model.PlaylistsModel
 import com.geektech.month6_hw3.databinding.ItemPlaylistBinding
 
-class PlaylistAdapter : Adapter<PlaylistAdapter.PlaylistViewHolder>() {
+class PlaylistsAdapter(private val onClick: (PlaylistsModel.Item) -> Unit) :
+    Adapter<PlaylistsAdapter.PlaylistViewHolder>() {
 
     private var list = mutableListOf<PlaylistsModel.Item>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(model: PlaylistsModel) {
-        list = model.items.toMutableList()
+    fun setList(model: List<PlaylistsModel.Item>) {
+        if (list.isEmpty())list.addAll(model)
+        else {
+            list.clear()
+            list.addAll(model)
+        }
         notifyDataSetChanged()
     }
 
@@ -43,6 +48,9 @@ class PlaylistAdapter : Adapter<PlaylistAdapter.PlaylistViewHolder>() {
                     .into(ivPlaylist)
                 tvTitle.text = playlistsModelItem.snippet.title
                 tvNumber.text = "${playlistsModelItem.contentDetails.itemCount} video series"
+                itemView.setOnClickListener {
+                    onClick.invoke(playlistsModelItem)
+                }
             }
         }
     }

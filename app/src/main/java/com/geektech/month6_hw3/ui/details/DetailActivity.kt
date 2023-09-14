@@ -33,6 +33,7 @@ class DetailActivity() : BaseActivity<ActivityDetailBinding, DetailViewModel>() 
         intent.putExtra(VIDEO_ITEM_ID, item.id)
         intent.putExtra(VIDEO_TITLE, item.snippet?.title)
         intent.putExtra(VIDEO_DESCRIPTION, item.snippet?.description)
+        startActivity(intent)
     }
 
     @SuppressLint("SetTextI18n")

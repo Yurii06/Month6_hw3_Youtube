@@ -1,5 +1,6 @@
 package com.geektech.month6_hw3.core.network
 
+import com.geektech.month6_hw3.BuildConfig
 import com.geektech.month6_hw3.data.remote.PlaylistApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -31,7 +32,7 @@ fun provideOkHttpClient(interceptor: Interceptor): OkHttpClient {
 
 fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
-        .baseUrl(com.geektech.month6_hw3.BuildConfig.BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
